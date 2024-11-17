@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Stopwatch</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color:black;
+            font-family: Arial, sans-serif;
+        }
+        .stopwatch {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px whitesmoke;
+            text-align: center;
+        }
+        .time {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color:green;
+        }
+    </style>
+</head>
+<body>
+    <div class="stopwatch">
+        <div class="time" id="display">00:00:00</div>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+    </div>
+
+    <script>
+        let timer;
+        let seconds = 0;
+
+        function updateDisplay() {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            document.getElementById('display').innerText = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        document.getElementById('start').onclick = function() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                seconds++;
+                updateDisplay();
+            }, 1000);
+        };
+
+        document.getElementById('stop').onclick = function() {
+            clearInterval(timer);
+        };
+
+        document.getElementById('reset').onclick = function() {
+            clearInterval(timer);
+            seconds = 0;
+            updateDisplay();
+        };
+    </script>
+</body>
+</html>
